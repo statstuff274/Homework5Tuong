@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="John Tuong">
+
+<title>Week 5 - Read/Modify/Summarize Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 5 - Read/Modify/Summarize Data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>John Tuong </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="task-1-read-in-the-data-and-modify" class="level2">
+<h2 class="anchored" data-anchor-id="task-1-read-in-the-data-and-modify">Task 1: Read in the Data and Modify</h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyverse' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tibble' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'purrr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'stringr' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'forcats' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lubridate' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readxl' was built under R version 4.3.3</code></pre>
+</div>
+</div>
+<section id="first-used-code-provided-with-download-to-load-in-both-data-frames-and-merge-them." class="level4">
+<h4 class="anchored" data-anchor-id="first-used-code-provided-with-download-to-load-in-both-data-frames-and-merge-them.">First, used code provided with download to load in both data frames and merge them.</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 382</code></pre>
+</div>
+</div>
+</section>
+<section id="second-using-tidyverse-functions-read-in-data-using-read_csv2-due-to-and-created-an-inner-join-using-only-variables-from-d3." class="level4">
+<h4 class="anchored" data-anchor-id="second-using-tidyverse-functions-read-in-data-using-read_csv2-due-to-and-created-an-inner-join-using-only-variables-from-d3.">Second, using tidyverse functions, read in data using read_csv2 (due to “;”) and created an inner join using only variables from d3.</h4>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `as.tibble()` was deprecated in tibble 2.0.0.
+ℹ Please use `as_tibble()` instead.
+ℹ The signature and semantics have changed, see `?as_tibble`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in inner_join(mat_data, por_data, by = c("school", "sex", "age", : Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 79 of `x` matches multiple rows in `y`.
+ℹ Row 79 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+</div>
+</div>
+</section>
+<section id="third-here-we-use-an-inner_join-all-variables-except-for-g1-g2-g3-paid-and-absences." class="level4">
+<h4 class="anchored" data-anchor-id="third-here-we-use-an-inner_join-all-variables-except-for-g1-g2-g3-paid-and-absences.">Third, here we use an inner_join all variables except for G1, G2, G3, paid, and absences.</h4>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(school, sex, age, address, famsize, Pstatus, Medu,
+Fedu, Mjob, Fjob, reason, guardian, traveltime, studytime, failures, schoolsup,
+famsup, activities, nursery, higher, internet, romantic, famrel, freetime,
+goout, Dalc, Walc, health)`</code></pre>
+</div>
+</div>
+</section>
+<section id="last-were-choosing-4-categorical-variables-sex-address-famsize-pstatus-were-interested-in-and-converting-them-into-factor-variables-in-each-tibble.-were-doing-this-for-the-math-data-portuguese-data-and-the-combined-data-each." class="level4">
+<h4 class="anchored" data-anchor-id="last-were-choosing-4-categorical-variables-sex-address-famsize-pstatus-were-interested-in-and-converting-them-into-factor-variables-in-each-tibble.-were-doing-this-for-the-math-data-portuguese-data-and-the-combined-data-each.">Last, we’re choosing 4 categorical variables (sex, address, famsize, Pstatus) we’re interested in and converting them into factor variables in each tibble. We’re doing this for the math data, POrtuguese data, and the combined data each.</h4>
+<hr>
+</section>
+</section>
+<section id="task-2-summarize-the-data-very-basic-eda" class="level2">
+<h2 class="anchored" data-anchor-id="task-2-summarize-the-data-very-basic-eda">Task 2: Summarize the Data (Very Basic EDA</h2>
+<section id="for-the-items-on-the-combined-data-final_join-well-be-doing-the-following-one-looking-at-how-the-data-is-stored-and-two-documenting-the-missing-values-in-the-data." class="level4">
+<h4 class="anchored" data-anchor-id="for-the-items-on-the-combined-data-final_join-well-be-doing-the-following-one-looking-at-how-the-data-is-stored-and-two-documenting-the-missing-values-in-the-data.">For the items on the combined data, final_join, we’ll be doing the following: one, looking at how the data is stored and two, documenting the missing values in the data.</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 320 × 33
+   school sex      age address famsize    Pstatus  Medu  Fedu Mjob  Fjob  reason
+   &lt;chr&gt;  &lt;fct&gt;  &lt;int&gt; &lt;fct&gt;   &lt;fct&gt;      &lt;fct&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; 
+ 1 GP     Female    18 Urban   greater t… apart       4     4 at_h… teac… course
+ 2 GP     Female    17 Urban   greater t… living…     1     1 at_h… other course
+ 3 GP     Female    15 Urban   greater t… living…     4     2 heal… serv… home  
+ 4 GP     Female    16 Urban   greater t… living…     3     3 other other home  
+ 5 GP     Male      16 Urban   less or e… living…     4     3 serv… other reput…
+ 6 GP     Male      16 Urban   less or e… living…     2     2 other other home  
+ 7 GP     Female    17 Urban   greater t… apart       4     4 other teac… home  
+ 8 GP     Male      15 Urban   less or e… apart       3     2 serv… other home  
+ 9 GP     Male      15 Urban   greater t… living…     3     4 other other home  
+10 GP     Female    15 Urban   greater t… living…     4     4 teac… heal… reput…
+# ℹ 310 more rows
+# ℹ 22 more variables: guardian &lt;chr&gt;, traveltime &lt;int&gt;, studytime &lt;int&gt;,
+#   failures &lt;int&gt;, schoolsup &lt;chr&gt;, famsup &lt;chr&gt;, paid &lt;chr&gt;,
+#   activities &lt;chr&gt;, nursery &lt;chr&gt;, higher &lt;chr&gt;, internet &lt;chr&gt;,
+#   romantic &lt;chr&gt;, famrel &lt;int&gt;, freetime &lt;int&gt;, goout &lt;int&gt;, Dalc &lt;int&gt;,
+#   Walc &lt;int&gt;, health &lt;int&gt;, absences &lt;int&gt;, G1 &lt;int&gt;, G2 &lt;int&gt;, G3 &lt;int&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    school        sex        age    address    famsize    Pstatus       Medu 
+         0          0          0          0          0          0          0 
+      Fedu       Mjob       Fjob     reason   guardian traveltime  studytime 
+         0          0          0          0          0          0          0 
+  failures  schoolsup     famsup       paid activities    nursery     higher 
+         0          0          0          0          0          0          0 
+  internet   romantic     famrel   freetime      goout       Dalc       Walc 
+         0          0          0          0          0          0          0 
+    health   absences         G1         G2         G3 
+         0          0          0          0          0 </code></pre>
+</div>
+</div>
+</section>
+<section id="categorical-variables" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-variables"><em>Categorical Variables</em></h3>
+<section id="here-we-create-a-one-way-two-way-and-three-way-contingency-table.-contingency-tables-show-the-distribution-of-a-variable-in-the-rows-and-another-in-its-columns." class="level4">
+<h4 class="anchored" data-anchor-id="here-we-create-a-one-way-two-way-and-three-way-contingency-table.-contingency-tables-show-the-distribution-of-a-variable-in-the-rows-and-another-in-its-columns.">Here we create a one-way, two-way, and three-way contingency table. Contingency tables show the distribution of a variable in the rows and another in its columns.</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Female   Male 
+   174    146 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+         greater than 3 less or equal to 3
+  Female            130                 44
+  Male              100                 46</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>, ,  = apart
+
+        
+         greater than 3 less or equal to 3
+  Female             12                  6
+  Male                4                  9
+
+, ,  = living together
+
+        
+         greater than 3 less or equal to 3
+  Female            118                 38
+  Male               96                 37</code></pre>
+</div>
+</div>
+</section>
+<section id="for-our-next-item-we-have-to-create-a-conditional-two-way-table.-one-way-will-be-using-filter-and-the-other-way-will-be-doing-a-three-way-table-then-subsetting-it." class="level4">
+<h4 class="anchored" data-anchor-id="for-our-next-item-we-have-to-create-a-conditional-two-way-table.-one-way-will-be-using-filter-and-the-other-way-will-be-doing-a-three-way-table-then-subsetting-it.">For our next item, we have to create a conditional two-way table. One-way will be using filter() and the other way will be doing a three-way table then subsetting it.</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+         greater than 3 less or equal to 3
+  Female             12                  6
+  Male                4                  9</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+         greater than 3 less or equal to 3
+  Female             12                  6
+  Male                4                  9</code></pre>
+</div>
+</div>
+</section>
+<section id="now-were-going-to-create-a-two-way-contingency-table-using-group_by-and-summarize-using-dplyr-from-tidyverse-and-pivot_wider-from-tidyr." class="level4">
+<h4 class="anchored" data-anchor-id="now-were-going-to-create-a-two-way-contingency-table-using-group_by-and-summarize-using-dplyr-from-tidyverse-and-pivot_wider-from-tidyr.">Now we’re going to create a two-way contingency table using group_by() and summarize() using dplyr from tidyverse and pivot_wider from tidyr.</h4>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'sex'. You can override using the `.groups`
+argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+# Groups:   sex [2]
+  sex    `greater than 3` `less or equal to 3`
+  &lt;fct&gt;             &lt;int&gt;                &lt;int&gt;
+1 Female              130                   44
+2 Male                100                   46</code></pre>
+</div>
+</div>
+</section>
+<section id="last-well-create-a-stacked-bar-graph-and-a-side-by-side-bar-graph-with-labels." class="level4">
+<h4 class="anchored" data-anchor-id="last-well-create-a-stacked-bar-graph-and-a-side-by-side-bar-graph-with-labels.">Last, we’ll create a stacked bar graph and a side-by-side bar graph with labels.</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Week-5---Read,-Modify,-Summarize-Data_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>For this previous stacked bar graph, it’s telling us the count of females and males that are in family sizes of either greater than 3 or less than 3. As per the legend, red denotes a family size of greater than 3 and blue denotes a family size of less than 3. The x-axis denotes the sex, whereas the y-axis represents the count of males and females based on family size. Something interesting we see here is that for both males and females, there are more them in family sizes that are greater than 3, almost two to three times more than those in a family size of less or equal to 3. The stacked bar graph visualizes the sexes as a whole, allowing you to see how each sex contributes to the total count visually, however, it makes it difficult to compare individual values.</p>
+</blockquote>
+<hr>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Week-5---Read,-Modify,-Summarize-Data_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>This side-by-side graph, even though same in values as the stacked bar graph, allows for easier visual comparison of the values between the sexes.</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="numeric-variables-and-across-groups" class="level3">
+<h3 class="anchored" data-anchor-id="numeric-variables-and-across-groups"><em>Numeric Variables (and across groups)</em></h3>
+<section id="first-well-find-the-measures-of-center-and-spread-for-three-variables-age-students-age-numeric-from-15-to-22-absences-number-of-school-absences-numeric-from-0-to-93-and-g3-final-grade-numeric-from-0-to-20-output-target.-as-a-note-for-later-g1-first-period-grade-numeric-from-0-to-20-and-g2-second-period-grade-numeric-from-0-to-20." class="level4">
+<h4 class="anchored" data-anchor-id="first-well-find-the-measures-of-center-and-spread-for-three-variables-age-students-age-numeric-from-15-to-22-absences-number-of-school-absences-numeric-from-0-to-93-and-g3-final-grade-numeric-from-0-to-20-output-target.-as-a-note-for-later-g1-first-period-grade-numeric-from-0-to-20-and-g2-second-period-grade-numeric-from-0-to-20.">First we’ll find the measures of center and spread for three variables (age = student’s age (numeric: from 15 to 22), absences = number of school absences (numeric: from 0 to 93), and G3 = final grade (numeric: from 0 to 20, output target)). As a note for later, G1 = first period grade (numeric: from 0 to 20) and G2 = second period grade (numeric: from 0 to 20).</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0.0  0.0  4.0  7.5 75.0</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18.75</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -11.25</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 308 × 33
+   school sex      age address famsize    Pstatus  Medu  Fedu Mjob  Fjob  reason
+   &lt;chr&gt;  &lt;fct&gt;  &lt;int&gt; &lt;fct&gt;   &lt;fct&gt;      &lt;fct&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; 
+ 1 GP     Female    18 Urban   greater t… apart       4     4 at_h… teac… course
+ 2 GP     Female    17 Urban   greater t… living…     1     1 at_h… other course
+ 3 GP     Female    15 Urban   greater t… living…     4     2 heal… serv… home  
+ 4 GP     Female    16 Urban   greater t… living…     3     3 other other home  
+ 5 GP     Male      16 Urban   less or e… living…     4     3 serv… other reput…
+ 6 GP     Male      16 Urban   less or e… living…     2     2 other other home  
+ 7 GP     Female    17 Urban   greater t… apart       4     4 other teac… home  
+ 8 GP     Male      15 Urban   less or e… apart       3     2 serv… other home  
+ 9 GP     Male      15 Urban   greater t… living…     3     4 other other home  
+10 GP     Female    15 Urban   greater t… living…     4     4 teac… heal… reput…
+# ℹ 298 more rows
+# ℹ 22 more variables: guardian &lt;chr&gt;, traveltime &lt;int&gt;, studytime &lt;int&gt;,
+#   failures &lt;int&gt;, schoolsup &lt;chr&gt;, famsup &lt;chr&gt;, paid &lt;chr&gt;,
+#   activities &lt;chr&gt;, nursery &lt;chr&gt;, higher &lt;chr&gt;, internet &lt;chr&gt;,
+#   romantic &lt;chr&gt;, famrel &lt;int&gt;, freetime &lt;int&gt;, goout &lt;int&gt;, Dalc &lt;int&gt;,
+#   Walc &lt;int&gt;, health &lt;int&gt;, absences &lt;int&gt;, G1 &lt;int&gt;, G2 &lt;int&gt;, G3 &lt;int&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  mean_absences_out median_absences_out sd_absences_out IQR_absences_out
+              &lt;dbl&gt;               &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;
+1              4.33                4.33            4.54                6</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>After obtaining the measures of center and spread for my selected variables, I decided to take the five number summary of absences. From there I found the IQR and used that to find at which what # of absences would become an outlier. IQR = Q3 - Q1, 7.5 - 0 = 7.5. Upper fence (Q3 + 1.5<em>IQR) = 18.75. Anything pass this is number is an outlier. Lower fence (Q1 - 1.5</em>IQR) = -11.25. Since it’s not possible to have negative absences, this means that no actual values fall below this point in the given dataset, or in this case, 0. For this reason, we’ll ignore the lower fence. Then I subsetted the data to filter out potential outliers to see if how our data is heavily skewed by the outliers. There were a total of 12 outliers. Here are the values for absences, before and after: Original Dataset: Mean, Median, SD, IQR: 5.4125, 5.4125, 7.8352, 7.25 No Outliers Data: Mean, Median, SD, IQR: 4.33, 4.33, 4.54, 6.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>By removing the outliers we can better understand how the data behaves without the extreme values that affect the center and spread. This is very helpful and can provide us a better picture of how the data typically behaves and helps us better understanding trends/patterns to make informed decisions about the data. *Notes: Outliers increase the variability in your data, which decreases statistical power. Consequently, excluding outliers can cause your results to become statistically significant.</p>
+</blockquote>
+<hr>
+</section>
+<section id="finding-measures-of-center-and-spread-across-a-single-grouping-variable-of-sex." class="level4">
+<h4 class="anchored" data-anchor-id="finding-measures-of-center-and-spread-across-a-single-grouping-variable-of-sex.">Finding measures of center and spread across a single grouping variable of sex.</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 13
+  sex    mean_age mean_absences mean_G3 median_age median_absences median_G3
+  &lt;fct&gt;     &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;
+1 Female     16.6          5.78    10.4         17            5.78        11
+2 Male       16.4          4.97    11.8         16            4.97        12
+# ℹ 6 more variables: sd_age &lt;dbl&gt;, sd_absences &lt;dbl&gt;, sd_G3 &lt;dbl&gt;,
+#   IQR_age &lt;dbl&gt;, IQR_absences &lt;dbl&gt;, IQR_G3 &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>For this previous summary that we subsetted, we’re looking at the mean, median, standard deviation (sd), and IQR of age, absences, and IQR for males and females. We can see that the mean ages for male (16.397) and female (16.632) are similar, meaning it’s balanced across the dataset - also similar to the standard deviation of the age. However, for absences, females have more absences of 5.782 compared to males which have a mean of 4.973. Interestingly enough, the mean G3 (final grade) of females (10.4) are lower than males (11.8), potentially showcasing that maybe having more absences could affect your final grade. Looking at sd, females are 9.392, compared to males 5.428, showing a wider variance of absences in females than males. As for IQR of final grades, both sexes are at a 5, but when coupled with the mean, males show a higher range of performance.</p>
+</blockquote>
+<hr>
+</section>
+<section id="finding-measures-of-center-and-spread-across-a-two-grouping-variables-of-sex-and-family-size." class="level4">
+<h4 class="anchored" data-anchor-id="finding-measures-of-center-and-spread-across-a-two-grouping-variables-of-sex-and-family-size.">Finding measures of center and spread across a two grouping variables of sex and family size.</h4>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'sex'. You can override using the `.groups`
+argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 14
+# Groups:   sex [2]
+  sex    famsize       mean_age mean_absences mean_G3 median_age median_absences
+  &lt;fct&gt;  &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;           &lt;dbl&gt;
+1 Female greater than…     16.6          5.81    10.2         17            5.81
+2 Female less or equa…     16.6          5.70    11.2         17            5.70
+3 Male   greater than…     16.3          4.53    11.6         16            4.53
+4 Male   less or equa…     16.6          5.93    12.2         17            5.93
+# ℹ 7 more variables: median_G3 &lt;dbl&gt;, sd_age &lt;dbl&gt;, sd_absences &lt;dbl&gt;,
+#   sd_G3 &lt;dbl&gt;, IQR_age &lt;dbl&gt;, IQR_absences &lt;dbl&gt;, IQR_G3 &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>This summary above shows the mean, median, sd, and IQR of age, absences, and final grades based on sex and family size. In the previous summary we only looked at sex, but now we’re also looking at family size. Something interesting to note is males that are in family sizes greater than 3 have the lowest mean absences of 4.53 out of the compared to the female categories (female/GT3 (5.81) and female/LT3 (5.70)). However, when looking at males/LT3, the mean absences are the highest at a mean of 5.93. This potentially shows that maybe family size has an affect on absences. When looking at the grades, both male in families of GT3 (12.20) and LT3 (11.58) have the highest final grade mean compared to the female GT3 (10.15) and LT3 (11.23). Now looking at sd, while female GT3 absences, there’s an sd of 9.56, the highest of all the groups… even though females have similar mean absences, their sd shows that there’s a wider sd, either indicating a higher variability in absences or there might be an outlier in the data. Values for median and and IQR are balanced and within a value of 2 for all grouped variables.</p>
+</blockquote>
+<hr>
+</section>
+<section id="create-a-correlation-matrix-between-all-numeric-variables." class="level4">
+<h4 class="anchored" data-anchor-id="create-a-correlation-matrix-between-all-numeric-variables.">Create a correlation matrix between all numeric variables.</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>                age    absences          G1          G2          G3
+age       1.0000000  0.14392517 -0.11037935 -0.18618740 -0.20603186
+absences  0.1439252  1.00000000 -0.06946116 -0.07580245 -0.02811847
+G1       -0.1103793 -0.06946116  1.00000000  0.86588796  0.81859418
+G2       -0.1861874 -0.07580245  0.86588796  1.00000000  0.91357599
+G3       -0.2060319 -0.02811847  0.81859418  0.91357599  1.00000000</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "matrix" "array" </code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>For this correlation matrix above, we’re measuring the association between five numeric variables. When measuring the association between variables, the correlation values (-1 to 1) indicate the strength and direction of the relationship between the two variables. -1 indicates a strong negative correlation, meaning that everytime x increases, y decreases. 0 means that there is no association between the two variables, x and y. 1 indicates a strong positive correlation, meaning that y increases with x. All of matrix values that are 1 is because the matrix is finding the association between the variable with itself (i.e., age and age, absences and absences, etc.). First we’ll start with age and absences, with a correlation of 0.144 this is considered a weak positive correlation, meaning that older students tend to have slightly more absences, but the relationship between the two variables aren’t very strong. As for age and the G variables, G1 (-0.110), G2 (-0.186), and G3 (-0.206), they all indicate a weak negative correlation, between the values of -0.10 and -0.20. This means that older students tend to score slightly lower, however, the relationship between age and the G variables aren’t very strong. Next we have absences. The correlation between absences and all of the G variables are all -0.100 to 0, indicating a weak negative correlation. Because it’s so close to 0, these values show either no relationship or a very slight relationship, meaning that absences may only have a very slight effect on grades. Last, we’ll look at the correlation between the grade variables. G1 and G2 should a strong positive correlation of 0.866, indicating that the relationship between these variables are strong; this means that those who had scored well in G1 may tend to do well in G2. Next is G1 and G3, which shows a correlation of 0.819, also indicating a pretty strong positive correlation. While the correlation of G1 and G3 might not be as strong as the other two, it still shows an overall strong relationship. Last, G2 and G3 has a correlation of 0.914, also indicating a strong positive correlation; this means that those who did well in G2 tend to do well for G3, their final grade.</p>
+</blockquote>
+<hr>
+</section>
+<section id="create-a-histogram-kernal-density-plot-and-boxplot-for-two-of-the-numeric-variables-across-one-categorical-variable." class="level4">
+<h4 class="anchored" data-anchor-id="create-a-histogram-kernal-density-plot-and-boxplot-for-two-of-the-numeric-variables-across-one-categorical-variable.">Create a histogram, kernal density plot, and boxplot for two of the numeric variables across one categorical variable.</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Week-5---Read,-Modify,-Summarize-Data_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Using the same variables, we created a histogram. This histogram contains the same information from the density plot but is different visually. Most of the rural data is covered by the urban data, making a little hard to read due to the overlapping histograms. Additionally, we made the binwidth = 1 for readability and used position identity to plot the values as they appear in the dataset. Using fill here would create stacked histograms and be shown as proportion of the total instead. Density plots don’t have the same problem as overlapping histograms, especially in multiple distributions, due to the continuous density lines that help keep the distributions separate. Just making notes for later studying -&gt; (https://clauswilke.com/dataviz/histograms-density-plots.html).</p>
+</blockquote>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Week-5---Read,-Modify,-Summarize-Data_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>For this density plot (smoothed histogram), this shows the distribution of age and G3, distinguished by address (urban vs.&nbsp;rural). The color scheme for address is as follows: red indicates a student’s home address as rural and blue indicates a student’s home address as urban. As seen here from the higher peaks (age distribution) most students are between the ages of 15 to 17, as previously shown in our summaries. The blue peaks indicate that urban students are primarily made up of younger students from 15 to 17. As for red, it seems that there is a small red peak, indicating that there are slightly more rural students around the age of 18 to 20. The lower peaked plots represent G3, final grade, distribution. Looking at the plot, majority of the grades fall between 8 and 12, peaking at around 10 for both rural and urban students (and another slight peak for urban at 15). When comparing both plots, urban students seem to have a wider distribution for both age and final grade, whereas rural students seem to have more of a concentrated distribution.</p>
+</blockquote>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Week-5---Read,-Modify,-Summarize-Data_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>This boxplot provides us a five number summary describing the distribution of values age and G3 across address. The five number summary include: maximum (max values in Q3 + 1.5<em>IQR), median (Q2), minimum (minimum values in Q1 - 1.5</em>IQR), as well as the 25th (Q1) and 75th (Q3) percentile, which gives us the IQR (Q3 - Q1). These are useful for comparing and visualizing the numeric datas’ distribution, especially for identifying outliers.</p>
+</blockquote>
+<hr>
+</section>
+<section id="create-two-scatterplots-relating-a-g3-variable-to-other-numeric-variables-put-g3-on-y-axis.-jitter-the-points-if-they-sit-on-top-of-each-other.-color-points-by-a-categorical-variable-in-each.-add-appropriate-titles-and-labels." class="level4">
+<h4 class="anchored" data-anchor-id="create-two-scatterplots-relating-a-g3-variable-to-other-numeric-variables-put-g3-on-y-axis.-jitter-the-points-if-they-sit-on-top-of-each-other.-color-points-by-a-categorical-variable-in-each.-add-appropriate-titles-and-labels.">Create two scatterplots relating a G3 variable to other numeric variables (put G3 on y-axis). Jitter the points if they sit on top of each other. Color points by a categorical variable in each. Add appropriate titles and labels.</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Week-5---Read,-Modify,-Summarize-Data_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Week-5---Read,-Modify,-Summarize-Data_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Above are two scatter plots (#1: age and G3 by address and #2: absences and G3 by address). Scatter plot #1, age and G3, shows a very weak correlation with no distinct pattern/association. When referring back to the matrix correlation, the correlation between age and G3 was -0.206, indicating a very weak negative relationship between age and final grade… revealing that older students that are 18+ have lower scores than those of the younger students. Additionally, we looked at this by address. So when comparing the relationship between urban and rural students, they showed similar performance with a pretty balanced spread across the scatter plot. Scatter plot #2, absence and G3, shows a very weak negative correlation. Looking back at the matrix correlation, the correlation between absences and G3 was -0.028, indicating a very slight relationship, meaning that absences may only have a very slight effect on grades. When observing by address, there is no clear relationship or pattern between urban and rural students, indicating that perhaps there isn’t much of a difference between the two students in terms of absences and G3 correlation. Something interesting to point out is that there might be a few potential outliers… having 70+ absences is definitely not normal!</p>
+</blockquote>
+</section>
+<section id="repeat-previous-scatter-plot-step-while-using-faceting-for-a-different-categorical-variable." class="level4">
+<h4 class="anchored" data-anchor-id="repeat-previous-scatter-plot-step-while-using-faceting-for-a-different-categorical-variable.">Repeat previous scatter plot step while using faceting for a different categorical variable.</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Week-5---Read,-Modify,-Summarize-Data_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Week-5---Read,-Modify,-Summarize-Data_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>We took both of these scatter plots from the previous prompt and applied faceting using facet_wrap(). Faceting is a way to take our plots to produce similar plots across another variable. For these scatter plots, I chose to facet with family size. So in addition to the variables of scatter plot #1 (age, G3, and address) and scatter plot #2 (absences, G3, and address), we’ve added family size to facet with, as this is a way to create multiple subplots based on the factors of the categorical variable. In this case, both plots will be split into two with us now being able to visualize the plots under famsize’s different levels, greater than 3 [family members] or less than 3 [family members]. Both of these facets now allow us to see how relationship between age/absences and G3 changes based on family size across address type. Essentially faceting helps us better/clearly visualize and further compare the relationships across many different categories. *Notes: Faceting helps reduce visual noise by breaking the plot down further. Allows you to have a single, common axis for all facets to easily scan and analyze across all panels to make a direct comparison of data.</p>
+</blockquote>
+</section>
+<section id="repeat-previous-scatter-plot-step-while-using-faceting-for-2-categorical-variables." class="level4">
+<h4 class="anchored" data-anchor-id="repeat-previous-scatter-plot-step-while-using-faceting-for-2-categorical-variables.">Repeat previous scatter plot step while using faceting for 2 categorical variables.</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Week-5---Read,-Modify,-Summarize-Data_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Week-5---Read,-Modify,-Summarize-Data_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>For these scatter plots, in addition to faceting with family size from the last prompt, this time we’re also faceting with Pstatus for a total of two categorical variables at each subplot. This allows us to split our dataset into four plots by the factors of Pstatus (apart, together) and Family Size (greater than 3, less than 3), allowing us to compare different pairings of family size and parental cohabitation status’ in relationship to absences and G3. Something interesting to note is that for both scatter plots (age and G3, absences and G3), there weren’t many data points when parents lived apart compared to those who lived together. In addition, majority of those data points where parents lived apart come from urban households. *Notes: can also use facet_wrap(vars(var1, var2)), x1 ~ x2, or nrow = # to control nrows/ncols</p>
+</blockquote>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
